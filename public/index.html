@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="d3.min.js"></script>
+    <script src="cluster-lib/choose.js"></script>
+    <script src="cluster-lib/generate.js"></script>
+    <script src="cluster-lib/config.js"></script>
+    <script src="js/kmeans.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+
+    <title>K-means visualisation</title>
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+            Bootstrap
+        </a>
+    </nav>
+
+    <!--Chart and choice section-->
+    <div class="container" style="margin-top: 5%;">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto" style="margin-bottom: 2%;">
+                <p>Angenommen, Sie haben die Bildschirmbreite und -höhe aller Geräte aufgezeichnet, die auf diese
+                    Website
+                    zugreifen. Sie werden wahrscheinlich feststellen, dass die Punkte drei Klumpen bilden: einen Klumpen
+                    mit
+                    kleinen Abmessungen (Smartphones), einen mit mittleren Abmessungen (Tablets) und einen mit großen
+                    Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen ohne
+                    Hilfe wird als Clustering bezeichnet.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card col-5" style="margin: auto; text-align: center;">
+                <div id="choice_area" class="card-body"></div>
+            </div>
+            <div id='svg_area' class="col-12 card"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md" style="text-align: center;">
+                <div id="button_area"></div>
+            </div>
+        </div>
+
+        <!--Text section-->
+        <div class='row'>
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <h3 class="section-header">K-Means Algorithm</h3>
+                <p>Der k-means-Algorithmus erfasst die Erkenntnis, dass sich jeder Punkt in einem Cluster nahe der Mitte
+                    dieses
+                    Clusters befinden sollte. Das funktioniert so: Zuerst wählen wir k, die Anzahl der Cluster, die wir
+                    in
+                    den Daten
+                    finden möchten. Dann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet werden, auf
+                    irgendeine
+                    Weise initialisiert.</p>
+
+                <p>Der Algorithmus besteht dann aus zwei abwechselnden Teilen: Im ersten Schritt weisen wir
+                    jeden Punkt in den Daten dem Cluster zu, dessen Schwerpunkt (Zentroid) ihm am nächsten liegt. Im
+                    zweiten
+                    Schritt berechnen wir die Position jedes Schwerpunkts als Mittelwert (Mitte) aller Punkte, die
+                    seinem Cluster zugewiesen sind. Wir wiederholen diese Schritte dann, bis sich die Zentroide nicht
+                    mehr
+                    bewegen, oder bis die Punkte aufhören, Cluster zu wechseln.</p>
+
+                <p>In der obigen Visualisierung repräsentiert die Farbe der kleinen Datenpunkte den Cluster, dem sie
+                    zugewiesen wurden. Die größeren Kreise sind die Cluster-Schwerpunkte, wobei ihre Farbe den Cluster
+                    angibt, den sie darstellen.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <script>restart();</script>
+
+
+
+
+
+</body>
+
+</html>

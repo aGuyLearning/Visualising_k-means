@@ -1,0 +1,27 @@
+body{
+    background-color: #fff;
+    width: 100%;
+}
+#card{
+    height: 500px;
+}
+
+#svg_area{
+    margin-left: 50px;
+    border: solid 2px #000;
+}
+
+svg{
+    background-color: #ffffff;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+}
