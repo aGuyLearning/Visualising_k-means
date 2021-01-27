@@ -17,6 +17,15 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 
 
@@ -25,42 +34,29 @@
 
 <body>
     <!--Navbar-->
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
-            Bootstrap
-        </a>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">K-Means</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#explanaition">Erklärung</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#example">Beispiel</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <!--Chart and choice section-->
+
     <div class="container" style="margin-top: 5%;">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto" style="margin-bottom: 2%;">
-                <p>Angenommen, Sie haben die Bildschirmbreite und -höhe aller Geräte aufgezeichnet, die auf diese
-                    Website
-                    zugreifen. Sie werden wahrscheinlich feststellen, dass die Punkte drei Klumpen bilden: einen Klumpen
-                    mit
-                    kleinen Abmessungen (Smartphones), einen mit mittleren Abmessungen (Tablets) und einen mit großen
-                    Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen ohne
-                    Hilfe wird als Clustering bezeichnet.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="card col-5" style="margin: auto; text-align: center;">
-                <div id="choice_area" class="card-body"></div>
-            </div>
-            <div id='svg_area' class="col-12 card"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-md" style="text-align: center;">
-                <div id="button_area"></div>
-            </div>
-        </div>
-
         <!--Text section-->
         <div class='row'>
-            <div class="col-lg-8 col-md-10 mx-auto">
+            <div id="explanaition" class="col-lg-8 col-md-10 mx-auto">
                 <h3 class="section-header">K-Means Algorithm</h3>
                 <p>Der k-means-Algorithmus erfasst die Erkenntnis, dass sich jeder Punkt in einem Cluster nahe der Mitte
                     dieses
@@ -86,6 +82,35 @@
 
             </div>
         </div>
+
+        <!--Chart and choice section-->
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto" style="margin-bottom: 2%;">
+                <h3 id="example" class="section-header">Beispiel</h3>
+                <p>Angenommen, Sie haben die Bildschirmbreite und -höhe aller Geräte aufgezeichnet, die auf diese
+                    Website
+                    zugreifen. Sie werden wahrscheinlich feststellen, dass die Punkte drei Klumpen bilden: einen Klumpen
+                    mit
+                    kleinen Abmessungen (Smartphones), einen mit mittleren Abmessungen (Tablets) und einen mit großen
+                    Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen ohne
+                    Hilfe wird als Clustering bezeichnet.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card col-5" style="margin: auto; text-align: center;">
+                <div id="choice_area" class="card-body" ></div>
+            </div>
+            <div id='svg_area' class="col-12 card" style="margin: auto; text-align: center;"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md" style="text-align: center;">
+                <div class="card"></div>
+                <div id="button_area" class="card-body"></div>
+            </div>
+        </div>
+
+
     </div>
     <script>restart();</script>
 

@@ -14,9 +14,6 @@ function color(i) {
     }
 }
 
-function dist(w, z) {
-    return Math.sqrt(Math.pow(w.x - z.x, 2) + Math.pow(w.y - z.y, 2));
-}
 
 function setup() {
     // Iremove former svg and choice elements
@@ -28,7 +25,8 @@ function setup() {
     svg = d3.select("#svg_area").append("svg")
         .attr("width", "100%")
         .attr("height", "500px")
-        .attr("viewBox", "0 0 " + width + " " + height);
+        .attr("viewBox", "0 0 " + width + " " + height)
+        .style('cursor', 'pointer');
 
 
     // Initialize the restart button
@@ -43,6 +41,7 @@ function setup() {
         .on("click", restart);
 }
 
+// draw scaled data points and add little animation
 function draw(data) {
 
     // coordinate scaling
@@ -98,27 +97,18 @@ function draw(data) {
         .attr("cy", function (d) { return y(d.y); });
 }
 
+// render the available example data buttons and activate their functions
 function choose_data(callback) {
     algo = choice;
 
-    //var smiley_dat = function() { return smiley(500); };
     var unif_dat = function () { return uniform(250); };
     var threenorm_dat = function () { return threenorm(250); };
-    //var pimples_dat = function() { return pimples(500); };
-    var circles = function () { return circle_pack(500); };
     var density = function () { return density_bars(500); };
-    var dbscan_dat = function () { return dbscan_all(); };
-    var dbscan_nonunique = function () { return dbscan_borders(); };
 
     var choices = [
         { name: "Uniform Points", choice: unif_dat },
         { name: "Gaussian Mixture", choice: threenorm_dat },
-        //{name: "Smiley Face", choice: smiley_dat, txtpos_x: 6.6},
-        { name: "Density Bars", choice: density },
-        { name: "Packed Circles", choice: circles },
-        //{name: "Pimpled Smiley", choice: pimples_dat, txtpos_x: 5.8},
-        { name: "DBSCAN Rings", choice: dbscan_dat },
-        { name: "Example A", choice: dbscan_nonunique }
+        { name: "Density Bars", choice: density }
     ];
 
     var title = { text: "Wie sollen deine Daten aussehen?" };

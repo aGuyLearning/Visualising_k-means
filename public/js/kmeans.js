@@ -1,5 +1,9 @@
 // Functions specific to kmeans
 
+function dist(w, z) {
+    return Math.sqrt(Math.pow(w.x - z.x, 2) + Math.pow(w.y - z.y, 2));
+}
+
 function choose_init_method(callback) {
     var choices = [{ name: "Ich wähle", choice: "user" },
     { name: "Zufällig", choice: "random" },
