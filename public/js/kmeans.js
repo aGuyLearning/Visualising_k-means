@@ -17,29 +17,47 @@ function choose_init_method(callback) {
 
 function reassign_points() {
     console.log(data)
-    for(var j = 0; j < data.length; j++){
+    // assign new cluster to each data point
+    for (var j = 0; j < data.length; j++) {
         var ibest = 0;
         var dbest = Infinity;
-        for(var i = 1; i < centroids.length; i++) {
+        for (var i = 1; i < centroids.length; i++) {
             var d = dist(data[j], centroids[i]);
-            if(d < dbest) {
+            if (d < dbest) {
                 dbest = d;
                 ibest = i;
             }
         }
         data[j].cluster = ibest;
     }
-
-    console.log(data);
-    console.log(centroids);
+    
     svg.selectAll(".dot")
-        .transition()
-        .style("fill", function (d) { return color(d.cluster); })
-        .each(function () {
-            d3.select("#next_button")
-                .attr("value", "Update Centroids")
-                .on("click", update_centroids);
-        });
+    .transition()
+    .style("fill", function (d) { return clr[d.cluster]; })
+    .each(function () {
+        d3.select("#next_button")
+            .attr("value", "Update Centroids")
+            .on("click", update_centroids);
+    });
+
+    // update the lines
+    var l = svg.selectAll('.line_cluster')
+            .data(data);
+        var updateLine = function(lines) {
+            lines
+                .attr("class", "line_cluster")
+                .attr('x1', function(d) { return x(d.x); })
+                .attr('y1', function(d) { return y(d.y); })
+                .attr('x2', function(d) { return x(centroids[d.cluster].x); })
+                .attr('y2', function(d) { return y(centroids[d.cluster].y); })
+                .attr('stroke', function(d) { return clr[d.cluster]; });
+        };
+        updateLine(l.enter().append('line'));
+        updateLine(l.transition().duration(500));
+        l.exit().remove();
+
+    
+    
 }
 
 function update_centroids() {
@@ -83,6 +101,8 @@ function update_centroids() {
                 .attr("value", "Reassign Points")
                 .on("click", reassign_points);
         });
+        
+        
 }
 
 function add_go_button() {
@@ -90,6 +110,8 @@ function add_go_button() {
         .attr("id", "next_button")
         .attr("name", "updateButton")
         .attr("type", "button")
+        .attr("class", "choice_rect btn btn-success")
+        .attr("style", "width: 150px; margin: 5px;")
         .attr("value", "   GO!   ")
         .on("click", function () {
             svg.selectAll(".cursor").remove();
@@ -103,6 +125,8 @@ function add_next_centroid_button(callback) {
         .attr("id", "next_centroid")
         .attr("name", "nextCentroidButton")
         .attr("type", "button")
+        .attr("class", "choice_rect btn btn-success")
+        .attr("style", "width: 150px; margin: 5px;")
         .attr("value", "Add Centroid")
         .on("click", callback);
 }
@@ -135,7 +159,7 @@ function get_centroids() {
                 .attr("cx", function (d) { return x(d.x); })
                 .attr("cy", function (d) { return y(d.y); });
 
-        
+
 
             if (centcount == 2) {
                 add_go_button();
@@ -189,7 +213,7 @@ function get_centroids() {
                 .attr("cx", function (d) { return x(d.x); })
                 .attr("cy", function (d) { return y(d.y); });
 
-           
+
 
             if (centcount == 2) {
                 add_go_button();

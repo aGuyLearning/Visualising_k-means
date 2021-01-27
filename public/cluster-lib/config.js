@@ -1,7 +1,6 @@
 var margin = 40, width = 1000, height = 500;
-
-var x
-var y
+var x;
+var y;
 
 
 var clr = ["white", "red", "blue", "green", "yellow", "black", "purple", "grey", "brown", "orange", "pink"];
@@ -14,7 +13,8 @@ function color(i) {
     }
 }
 
-
+// setting up the svg and restart button
+// also removes previous
 function setup() {
     // Iremove former svg and choice elements
     d3.select("svg").remove();
@@ -76,7 +76,6 @@ function draw(data) {
 
     yAxisG.call(yAxis)
         .attr('transform', 'translate(' + margin + ',0)');
-
 
 
     // actually drawing points

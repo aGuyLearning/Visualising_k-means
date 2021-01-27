@@ -14,10 +14,6 @@ function restart() {
 
     setup();
 
-    svg.append("g")
-    .attr("class", "own_region")
-    .attr("opacity", 0.2);
-
     choose_init_method(function() {
         kmeans_init = choice;
 
