@@ -6,6 +6,49 @@ body{
     height: 500px;
 }
 
+/* Navbar */
+.navbar {
+    padding:.5rem .5rem .5rem 1rem;
+  }
+
+/* Header */
+.masthead {
+    margin-bottom: 50px;
+    background: no-repeat 50%;
+    background-color: #868e96;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+    padding: 3% 15% 7%;
+    height: 30vmax;
+}
+
+.big-heading {
+    font-family: "Montserrat-Black";
+    font-size: 3.5rem;
+    line-height: 1.5;
+    color: #fff;
+  }
+
+@media (max-width: 1028px){
+    .masthead {
+        margin-bottom: 50px;
+        background: no-repeat 50%;
+        background-color: #868e96;
+        background-attachment: scroll;
+        position: relative;
+        background-size: cover;
+        padding: 3% 15% 7%;
+    }
+    .big-heading {
+        font-family: "Montserrat-Black";
+        font-size: 2.5rem;
+        line-height: 1.5;
+        color: #fff;
+      }
+}
+
+/* Svg styling */
 #svg_area{
     margin-left: 50px;
     border: solid 2px #000;
@@ -15,6 +58,7 @@ svg{
     background-color: #ffffff;
 }
 
+/* Text styling */
 p {
     display: block;
     margin-block-start: 1em;
@@ -24,4 +68,10 @@ p {
     font-family: sans-serif;
     font-weight: 400;
     font-size: 20px;
+}
+
+/* footer */
+footer{
+    padding: 7% 15%;
+    text-align: center;
 }
