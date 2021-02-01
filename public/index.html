@@ -65,50 +65,31 @@
         </div>
     </div>
 
-    <div class="container" style="margin-top: 5%;">
+    <div class="container-fluid" style="margin-top: 5%;">
         <div class="row">
-            <div class="col-lg-9 col-md-10 mx-auto">
+            <!-- Left spacing -->
+            <div class="col-2">
+            </div>
+            <!-- content section -->
+            <div class="col-lg-7 col-md-10 mx-auto">
                 <div class='row'>
-                    <!--Text section-->
-                    <section id="explanaition">
-                        <h2>K-Means Algorithm</h2>
-                        <p>Der k-means-Algorithmus erfasst die Erkenntnis, dass sich jeder Punkt in einem Cluster nahe
-                            der
-                            Mitte
-                            dieses
-                            Clusters befinden sollte. Das funktioniert so: Zuerst wählen wir k, die Anzahl der Cluster,
-                            die
-                            wir
-                            in
-                            den Daten
-                            finden möchten. Dann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet
-                            werden,
-                            auf
-                            irgendeine
-                            Weise initialisiert.</p>
 
-                        <p>Der Algorithmus besteht dann aus zwei abwechselnden Teilen: Im ersten Schritt weisen wir
-                            jeden Punkt in den Daten dem Cluster zu, dessen Schwerpunkt (Zentroid) ihm am nächsten
-                            liegt. Im
-                            zweiten
-                            Schritt berechnen wir die Position jedes Schwerpunkts als Mittelwert (Mitte) aller Punkte,
-                            die
-                            seinem Cluster zugewiesen sind. Wir wiederholen diese Schritte dann, bis sich die Zentroide
-                            nicht
-                            mehr
-                            bewegen, oder bis die Punkte aufhören, Cluster zu wechseln.</p>
-
-                        <p>In der Visualisierung repräsentiert die Farbe der kleinen Datenpunkte den Cluster, dem sie
-                            zugewiesen wurden. Die größeren Kreise sind die Cluster-Schwerpunkte, wobei ihre Farbe den
-                            Cluster
-                            angibt, den sie darstellen.
-                        </p>
+                    <!-- Introduction section -->
+                    <section id="introduction">
+                        <p>Ich bin furchtbar unorganisiert und doch macht es mir großen Spaß mir systeme auszudenken die
+                            Ordnung schaffen. Das Schöne an Machine Learning ist, dass die Modelle dies selbstständig
+                            tun, besonders beim unsupervised Learning. Einer meiner Lieblingsalgorithmen dazu ist der
+                            K-Means Algorithmus, den ich durch das Frühstudium an der Uni Koblenz-Landau kennenlernen
+                            durfte. Um meine Faszination mit diesem Feld ein wenig zu teilen, habe ich mich dazu
+                            entschlossen es zum Thema meiner Ausarbeitung der 13_II im IV Kurs zu machen. Ich möchte
+                            also den K-Means Algorithmus erklären. Um seine Schönheit zu verstehen, muss man jedoch
+                            zunächst einige andere Dinge verstehen.</p>
                     </section>
 
                     <!-- clustering section -->
                     <section id="clustering">
                         <h2>Clustering</h2>
-                        <img src="img/clustering.png" alt="" class="img-fluid section-img">
+                        <img src="img/clustering.png" alt="" class="img-fluid" style="margin: auto; display: block;">
                         <p>Clustering ist die Aufgabe, die Datenpunkte in mehrere Gruppen zu unterteilen, sodass
                             Datenpunkte in denselben Gruppen anderen Datenpunkten in derselben Gruppe ähnlicher sind als
                             denen in anderen Gruppen. Mit einfachen Worten, das Ziel ist es, Datenpunkte mit ähnlichen
@@ -120,10 +101,18 @@
                         <section id="clustering--d-i">
                             <h3>Dunn-Index</h3>
                             <img src="img/Formel.png" alt="" class="img-fluid section-img">
+                            <br>
                             <img src="img/Dunn-Index.png" alt="" class="img-fluid section-img">
+                            <p>Dank mathematischer Beschreibungen können wir relative Aussagen über die aus Algorithmen
+                                entstanden Cluster, so hätten wir z. B. den Dunn-Index der Aussage trifft über die
+                                Abstände zwischen Clustern trifft. Er wird errechnet, indem man den minimalen Abstand
+                                eines Punktes des Clusters zu einem Punkt eines fremden Clusters durch den maximalen
+                                Abstand zweier Punkte im selben Cluster teilt. Der sagt uns aber nur etwas über das
+                                Verhältnis der Cluster zueinander, wollen wir z.b. sehen wie es in einem Cluster
+                                aussieht, so brauchen wir den folgenden.</p>
                         </section>
                         <section id="clustering--s-k">
-                            <h3></h3>
+                            <h3>Silhouetten-Koeffizient </h3>
                             <img src="img/Datei_000.png" alt="" class="img-fluid section-img">
                             <p>Er ist leider ein wenig aufwendiger zu rechnen als der Dunn-Index, ist jedoch auch
                                 aussagekräftiger. Der Silhouetten-Koeffizient sagt uns, wie gut ein Objekt klassifiziert
@@ -144,6 +133,35 @@
                         </section>
                     </section>
 
+                    <!--Text section-->
+                    <section id="explanation">
+                        <h2>K-Means Algorithm</h2>
+                        <p>Der k-means-Algorithmus erfasst die Erkenntnis, dass sich jeder Punkt in einem Cluster nahe
+                            der Mitte
+                            dieses
+                            Clusters befinden sollte. Das funktioniert so: Zuerst wählen wir k, die Anzahl der Cluster,
+                            die wir in den Daten
+                            finden möchten. Dann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet
+                            werden, auf irgendeine Weise initialisiert.</p>
+
+                        <p>Der Algorithmus besteht dann aus zwei abwechselnden Teilen: Im ersten Schritt weisen wir
+                            jeden Punkt in den Daten dem Cluster zu, dessen Schwerpunkt (Zentroid) ihm am nächsten
+                            liegt. Im
+                            zweiten
+                            Schritt berechnen wir die Position jedes Schwerpunkts als Mittelwert (Mitte) aller Punkte,
+                            die
+                            seinem Cluster zugewiesen sind. Wir wiederholen diese Schritte dann, bis sich die Zentroide
+                            nicht
+                            mehr
+                            bewegen, oder bis die Punkte aufhören, Cluster zu wechseln.</p>
+
+                        <p>In der Visualisierung repräsentiert die Farbe der kleinen Datenpunkte den Cluster, dem sie
+                            zugewiesen wurden. Die größeren Kreise sind die Cluster-Schwerpunkte, wobei ihre Farbe den
+                            Cluster
+                            angibt, den sie darstellen.
+                        </p>
+                    </section>
+
                     <!-- Example section -->
                     <section id="example">
                         <h2>Beispiel</h2>
@@ -154,8 +172,8 @@
                             Klumpen
                             mit
                             kleinen Abmessungen (Smartphones), einen mit mittleren Abmessungen (Tablets) und einen mit
-                            großen
-                            Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen ohne
+                            großen Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen
+                            ohne
                             Hilfe wird als Clustering bezeichnet.</p>
                     </section>
 
@@ -179,19 +197,21 @@
                     </section>
                 </div>
             </div>
-            <div class="d-sm-none d-md-block col-3">
+
+            <!-- Navbar section -->
+            <div class="d-none d-md-block col-3">
                 <nav class="section-nav">
                     <ol>
                         <li><a href="#introduction">Einleitung</a></li>
-                        <li><a href="#Example">Beispiele</a></li>
-                        <li><a href="#interaction">Interaktion</a></li>
                         <li><a href="#clustering">Clustering</a>
                             <ul>
                                 <li class=""><a href="#clustering--d-i">Dunn-Index</a></li>
-                                <li class=""><a href="#clustering--s-k">Silhouetten-Koeffizient</a></li>
+                                <li class=""><a href="#clustering--s-k">Silhouetten-Koeffizient </a></li>
                             </ul>
                         </li>
-
+                        <li><a href="#explanation">Erklärung</a></li>
+                        <li><a href="#example">Beispiele</a></li>
+                        <li><a href="#interaction">Interaktion</a></li>
                     </ol>
                 </nav>
             </div>

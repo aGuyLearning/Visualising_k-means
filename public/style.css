@@ -83,6 +83,12 @@ body{
 }
 
 /* Section Styling */
+.section-img{
+    display: block;
+    width: 300px;
+    height: auto;
+    margin: auto;
+}
 
 /* Text styling */
 p {
