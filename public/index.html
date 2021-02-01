@@ -35,11 +35,11 @@
     <script src="js/section-nav.js"></script>
 
 
-    <title>K-means visualisation</title>
+    <title>K-Means Visualisierung</title>
 </head>
 
 <body>
-    <!--Navbar-->
+    <!--Navbar for small devices-->
     <nav class="d-none d-sm-block d-md-none navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" href="#">K-Means</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -59,19 +59,23 @@
     </nav>
 
     <!--Title-->
-    <div id="title" class="row masthead" style="background-image: url(img/mag_tech_machine_learning_2400x1350_02.jpg);">
-        <div class="col-lg-6">
-            <h1 class="big-heading">Eine Einleitung zum <br> <b>K-means Algorithmus</b></h1>
+    <header class="masthead" style="background-image: url(img/mag_tech_machine_learning_2400x1350_02.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h1 class="big-heading">Eine Einleitung zum <br> <b>K-means Algorithmus</b></h1>
+                </div>
+            </div>
         </div>
-    </div>
+    </header>
 
     <div class="container-fluid" style="margin-top: 5%;">
-        <div class="row">
+        <div class="row" style="padding: 0 10%;">
             <!-- Left spacing -->
             <div class="col-2">
             </div>
             <!-- content section -->
-            <div class="col-lg-7 col-md-10 mx-auto">
+            <div class="col-lg-8 col-md-10 mx-auto">
                 <div class='row'>
 
                     <!-- Introduction section -->
@@ -136,49 +140,33 @@
                     <!--Text section-->
                     <section id="explanation">
                         <h2>K-Means Algorithm</h2>
-                        <p>Der k-means-Algorithmus erfasst die Erkenntnis, dass sich jeder Punkt in einem Cluster nahe
-                            der Mitte
-                            dieses
-                            Clusters befinden sollte. Das funktioniert so: Zuerst wählen wir k, die Anzahl der Cluster,
-                            die wir in den Daten
-                            finden möchten. Dann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet
-                            werden, auf irgendeine Weise initialisiert.</p>
-
-                        <p>Der Algorithmus besteht dann aus zwei abwechselnden Teilen: Im ersten Schritt weisen wir
-                            jeden Punkt in den Daten dem Cluster zu, dessen Schwerpunkt (Zentroid) ihm am nächsten
-                            liegt. Im
-                            zweiten
-                            Schritt berechnen wir die Position jedes Schwerpunkts als Mittelwert (Mitte) aller Punkte,
-                            die
-                            seinem Cluster zugewiesen sind. Wir wiederholen diese Schritte dann, bis sich die Zentroide
-                            nicht
-                            mehr
-                            bewegen, oder bis die Punkte aufhören, Cluster zu wechseln.</p>
-
-                        <p>In der Visualisierung repräsentiert die Farbe der kleinen Datenpunkte den Cluster, dem sie
-                            zugewiesen wurden. Die größeren Kreise sind die Cluster-Schwerpunkte, wobei ihre Farbe den
-                            Cluster
-                            angibt, den sie darstellen.
+                        <p>Der K-Means Algorithmus baut auf der Erkenntnis, dass sich jeder Punkt in einem Cluster nahe
+                            der Mitte dieses Clusters befinden sollte.
+                            Erreichen können wir dies so:</p>
+                        <ol>
+                            <li>Zuerst wählen wir k, die Anzahl der Cluster, die wir in den Daten finden möchten.</li>
+                            <li>Dann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet werden, auf
+                                irgendeine Weise initialisiert.</li>
+                        </ol>
+                        <p>ann werden die Zentren dieser k Cluster, die als Zentroide bezeichnet werden, auf irgendeine
+                            Weise initialisiert.</p>
+                        <ol>
+                            <li>Im ersten Schritt weisen wir jeden Punkt in den Daten dem Cluster zu, dessen Schwerpunkt
+                                (Zentroid) ihm am nächsten liegt.</li>
+                            <li> Im zweiten Schritt berechnen wir die Position jedes Schwerpunkts als Mittelwert (Mitte)
+                                aller Punkte, die seinem Cluster zugewiesen sind.</li>
+                        </ol>
+                        <p>Wir wiederholen diese Schritte dann, bis sich die Zentroide nicht mehr bewegen, oder bis die
+                            Punkte aufhören, Cluster zu wechseln.</p>
+                        <p>Für Menschen die Dinge besser verstehen wenn sie in einem IDE stehen oder in Codeform sind:
                         </p>
-                    </section>
+                        <img src="img/carbon.png" alt="" class="img-fluid">
 
-                    <!-- Example section -->
-                    <section id="example">
-                        <h2>Beispiel</h2>
-                        <p>Angenommen, Sie haben die Bildschirmbreite und -höhe aller Geräte aufgezeichnet, die auf
-                            diese
-                            Website
-                            zugreifen. Sie werden wahrscheinlich feststellen, dass die Punkte drei Klumpen bilden: einen
-                            Klumpen
-                            mit
-                            kleinen Abmessungen (Smartphones), einen mit mittleren Abmessungen (Tablets) und einen mit
-                            großen Abmessungen (Laptops und Desktops).Ein Algorithmus zum Erkennen dieser Punktklumpen
-                            ohne
-                            Hilfe wird als Clustering bezeichnet.</p>
                     </section>
 
                     <!-- Interaction Section -->
                     <section id="interaction">
+                        <h3>Interaktives Beispiel</h3>
                         <div class="row">
                             <div class="card col-5" style="margin: auto; text-align: center;">
                                 <div id="choice_area" class="card-body"></div>
@@ -199,7 +187,7 @@
             </div>
 
             <!-- Navbar section -->
-            <div class="d-none d-md-block col-3">
+            <div class="d-none d-md-block col-2">
                 <nav class="section-nav">
                     <ol>
                         <li><a href="#introduction">Einleitung</a></li>
@@ -209,9 +197,12 @@
                                 <li class=""><a href="#clustering--s-k">Silhouetten-Koeffizient </a></li>
                             </ul>
                         </li>
-                        <li><a href="#explanation">Erklärung</a></li>
-                        <li><a href="#example">Beispiele</a></li>
-                        <li><a href="#interaction">Interaktion</a></li>
+                        <li><a href="#explanation">Erklärung</a>
+                            <ul>
+                                <li><a href="#interaction">Interaktion</a></li>
+                                </pl>
+                        </li>
+
                     </ol>
                 </nav>
             </div>

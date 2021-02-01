@@ -38,31 +38,39 @@ body{
     color: #666;
   }
 
-.section-nav ul, ol {
+.section-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  li {
+
+.section-nav ol{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+ li {
     margin-left: 1rem;
   }
 
 /* Header */
 .masthead {
+    margin-bottom: 50px;
     background: no-repeat center center;
     background-color: #868e96;
     background-attachment: scroll;
     position: relative;
     background-size: cover;
-    padding: 3% 15% 7%;
-    height: 30vmax;
 }
+
 
 .big-heading {
     font-family: "Montserrat-Black";
     font-size: 3.5rem;
     line-height: 1.5;
     color: #fff;
+    padding: 200px 0 ;
   }
 
 @media (max-width: 1028px){
@@ -72,7 +80,6 @@ body{
         background-attachment: scroll;
         position: relative;
         background-size: cover;
-        padding: 3% 15% 7%;
     }
     .big-heading {
         font-family: "Montserrat-Black";
@@ -89,6 +96,9 @@ body{
     height: auto;
     margin: auto;
 }
+section{
+    margin-bottom: 50px;
+}
 
 /* Text styling */
 p {
@@ -101,9 +111,13 @@ p {
     font-weight: 400;
     font-size: 20px;
 }
+
 ol{
     border-left: 1px solid #efefef;
 }
+ h2,h3{
+    margin-bottom: 30px;
+ }
 
 /* Svg styling */
 #svg_area{
