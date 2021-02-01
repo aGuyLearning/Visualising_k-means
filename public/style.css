@@ -10,11 +10,46 @@ body{
 .navbar {
     padding:.5rem .5rem .5rem 1rem;
   }
+.section-nav {
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+  }
+  .section-nav li.active > a {
+    color: #333;
+    font-weight: 500;
+  }
+/* Sidebar Navigation */
+.section-nav {
+    padding-left: 0;
+    border-left: 1px solid #efefef;
+  }
+  
+.section-nav a {
+    text-decoration: none;
+    display: block;
+    padding: .125rem 0;
+    color: #ccc;
+    transition: all 50ms ease-in-out; /* 💡 This small transition makes setting of the active state smooth */
+  }
+  
+.section-nav a:hover,
+.section-nav a:focus {
+    color: #666;
+  }
+
+.section-nav ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin-left: 1rem;
+  }
 
 /* Header */
 .masthead {
-    margin-bottom: 50px;
-    background: no-repeat 50%;
+    background: no-repeat center center;
     background-color: #868e96;
     background-attachment: scroll;
     position: relative;
@@ -32,8 +67,7 @@ body{
 
 @media (max-width: 1028px){
     .masthead {
-        margin-bottom: 50px;
-        background: no-repeat 50%;
+        background: no-repeat center center;
         background-color: #868e96;
         background-attachment: scroll;
         position: relative;
@@ -48,15 +82,7 @@ body{
       }
 }
 
-/* Svg styling */
-#svg_area{
-    margin-left: 50px;
-    border: solid 2px #000;
-}
-
-svg{
-    background-color: #ffffff;
-}
+/* Section Styling */
 
 /* Text styling */
 p {
@@ -69,6 +95,20 @@ p {
     font-weight: 400;
     font-size: 20px;
 }
+ol{
+    border-left: 1px solid #efefef;
+}
+
+/* Svg styling */
+#svg_area{
+    margin-left: 50px;
+    border: solid 2px #000;
+}
+
+svg{
+    background-color: #ffffff;
+}
+
 
 /* footer */
 footer{
