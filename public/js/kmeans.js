@@ -10,7 +10,7 @@ function choose_init_method(callback) {
     { name: "Weitester Punkt", choice: "farthest" }
     ];
 
-    var title = { text: "Wie wollen sie die anfänglichen Zentroiden wählen?" };
+    var title = { text: "Wie wollen Sie die anfänglichen Zentroiden wählen?" };
 
     display_choice(choices, title, callback);
 }
@@ -112,7 +112,7 @@ function add_go_button() {
         .attr("type", "button")
         .attr("class", "choice_rect btn btn-success")
         .attr("style", "width: 150px; margin: 5px;")
-        .attr("value", "   GO!   ")
+        .attr("value", "   LOS!   ")
         .on("click", function () {
             svg.selectAll(".cursor").remove();
             d3.select(".target_rect").remove();
@@ -127,7 +127,7 @@ function add_next_centroid_button(callback) {
         .attr("type", "button")
         .attr("class", "choice_rect btn btn-success")
         .attr("style", "width: 150px; margin: 5px;")
-        .attr("value", "Add Centroid")
+        .attr("value", "Neuer Zentroid")
         .on("click", callback);
 }
 

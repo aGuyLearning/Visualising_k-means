@@ -102,6 +102,7 @@
                             Ursprung, etc.), die einen Datenpunkt ausmachen bereits beim Formulieren des Problems so
                             gewählt werden, dass sie möglichst differenzierbar sind.</p>
 
+                        <!-- Dunn-Index section -->
                         <section id="clustering--d-i">
                             <h3>Dunn-Index</h3>
                             <img src="img/Formel.png" alt="" class="img-fluid section-img">
@@ -115,6 +116,7 @@
                                 Verhältnis der Cluster zueinander, wollen wir z.b. sehen wie es in einem Cluster
                                 aussieht, so brauchen wir den folgenden.</p>
                         </section>
+                        <!-- Silhouetten-Koeffizient section -->
                         <section id="clustering--s-k">
                             <h3>Silhouetten-Koeffizient </h3>
                             <img src="img/Datei_000.png" alt="" class="img-fluid section-img">
@@ -135,10 +137,24 @@
                                 schlechteste, kurz, dein Algorithmus hat ein Problem und man kann eigentlich wieder von
                                 vorne anfangen.</p>
                         </section>
+
+                        <!-- Problems section -->
+                        <section id="clustering--bad">
+                            <h3>Probleme</h3>
+                            <p>Beim Clustering gibt es eine Reihe von Problemen. Darunter:
+                            </p>
+                            <ul>
+                                <li>Der Umgang mit einer großen Anzahl von Datenelementen kann aufgrund der zeitlichen Komplexität problematisch sein.</li>
+                                <li>Die Wirksamkeit der Methode hängt von der Definition von „Entfernung“ ab (für entfernungsbasiertes Clustering). Wenn es kein offensichtliches Abstandsmaß gibt, müssen wir es "definieren", was insbesondere in mehrdimensionalen Räumen nicht immer einfach ist.</li>
+                                <li>Das Ergebnis des Clustering-Algorithmus kann unterschiedlich interpretiert werden.</li>
+                            </ul>
+                            <p>Sehr unterhaltsam sind dabei Probleme der Ähnlichkeit. Wie legt man fest, wie ähnlich sich etwas ist?</p>
+                            <img src="" alt="">
+                        </section>
                     </section>
 
-                    <!--Text section-->
-                    <section id="explanation">
+                    <!-- K-means section -->
+                    <section id="k-means">
                         <h2>K-Means Algorithm</h2>
                         <p>Der K-Means Algorithmus baut auf der Erkenntnis, dass sich jeder Punkt in einem Cluster nahe
                             der Mitte dieses Clusters befinden sollte.
@@ -162,27 +178,59 @@
                         </p>
                         <img src="img/carbon.png" alt="" class="img-fluid">
 
+                        <!-- Interaction Section -->
+                        <section id="k-means--interaction">
+                            <h3>Interaktives Beispiel</h3>
+                            <p>User am Telefon sollten das Handy quer nehmen, um optimal mit der Grafik zu interagieren.
+                            </p>
+                            <div class="row">
+                                <div class="card col-5" style="margin: auto; text-align: center;">
+                                    <div id="choice_area" class="card-body"></div>
+                                </div>
+                                <div id='svg_area' class="col-12 card" style="margin: auto; text-align: center;"></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md" style="text-align: center;">
+                                    <div class="card"></div>
+                                    <div id="button_area" class="card-body">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <script>restart();</script>
+
+                        </section>
+
+                        <section id="k-means--good">
+                            <h3>Gute Eigenschaften</h3>
+                            <p>Aus der Implementierung und dem Aufbau des Algorithmus lassen sich folgende positive Eigenschaften ableiten: 
+                            </p>
+                            <ul>
+                                <li>Relativ einfach zu implementieren.</li>
+                                <li>Skaliert gut auf große Datenmengen.</li>
+                                <li>Passt sich leicht neuen Beispielen an.</li>
+                                <li>Verallgemeinert sich auf Cluster unterschiedlicher Formen und Größen, z. B. elliptische Cluster.</li>
+                            </ul>
+                        </section>
+
+                        <!-- Problem section -->
+                        <section id="k-means--bad">
+                            <h3>Probleme</h3>
+                            <p>Natürlich ist auch der K-Means Algorithmus nicht fehlerfrei, weit davon entfernt sogar. Darunter:
+                            </p>
+                            <ul>
+                                <li>Die Anzahl der Cluster muss im Voraus festgelegt werden. Der K-Means-Algorithmus kann nicht erraten, wie viele Cluster in den Daten vorhanden sind. Die Bestimmung der Anzahl von Clustern kann eine herausfordernde Aufgabe sein.</li>
+                                <li>Kann nur lineare Grenzen zeichnen. Wenn es eine nicht lineare Struktur gibt, die Gruppen in den Daten trennt, ist k-means keine gute Wahl.</li>
+                                <li>Verlangsamt sich mit zunehmender Anzahl von Abtastwerten, da der k-means-Algorithmus bei jedem Schritt auf alle Datenpunkte zugreift und Entfernungen berechnet. Eine alternative Möglichkeit besteht darin, eine Teilmenge von Datenpunkten zu verwenden, um die Position von Schwerpunkten zu aktualisieren. Es ist bekannt, dass der k-Means Algorithmus eine Zeitkomplexität von O (n 2) aufweist, wobei n die Eingangsdatengröße ist. Diese quadratische Komplexität verhindert, dass der Algorithmus in großen Anwendungen effektiv eingesetzt wird.</li>
+                                <li>Empfindlich gegen Outliner (Daten die sehr weit von anderen entfernt liegen)</li>
+                            </ul>
+
+                        </section>
+
                     </section>
 
-                    <!-- Interaction Section -->
-                    <section id="interaction">
-                        <h3>Interaktives Beispiel</h3>
-                        <div class="row">
-                            <div class="card col-5" style="margin: auto; text-align: center;">
-                                <div id="choice_area" class="card-body"></div>
-                            </div>
-                            <div id='svg_area' class="col-12 card" style="margin: auto; text-align: center;"></div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md" style="text-align: center;">
-                                <div class="card"></div>
-                                <div id="button_area" class="card-body"></div>
-                            </div>
-                        </div>
-                        <script>restart();</script>
-
-                    </section>
                 </div>
             </div>
 
@@ -193,13 +241,17 @@
                         <li><a href="#introduction">Einleitung</a></li>
                         <li><a href="#clustering">Clustering</a>
                             <ul>
-                                <li class=""><a href="#clustering--d-i">Dunn-Index</a></li>
-                                <li class=""><a href="#clustering--s-k">Silhouetten-Koeffizient </a></li>
+                                <li><a href="#clustering--d-i">Dunn-Index</a></li>
+                                <li><a href="#clustering--s-k">Silhouetten-Koeffizient </a></li>
+                                <li><a href="#clustering--bad">Probleme</a></li>
                             </ul>
                         </li>
-                        <li><a href="#explanation">Erklärung</a>
+                        <li><a href="#k-means">K-Means</a>
                             <ul>
-                                <li><a href="#interaction">Interaktion</a></li>
+                                <li><a href="#k-means--interaction">Beispiel</a></li>
+                                <li><a href="#k-means--good"></a></li>
+                                <li><a href="#k-means--bad">Probleme</a></li>
+
                                 </pl>
                         </li>
 

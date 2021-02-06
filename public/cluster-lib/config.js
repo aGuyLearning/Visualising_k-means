@@ -2,7 +2,6 @@ var margin = 40, width = 1000, height = 500;
 var x;
 var y;
 
-
 var clr = ["white", "red", "blue", "green", "yellow", "black", "purple", "grey", "brown", "orange", "pink"];
 function color(i) {
     if (i == 0) {
@@ -13,6 +12,12 @@ function color(i) {
     }
 }
 
+function zoomed(event) {
+    const { transform } = event;
+    g.attr("transform", transform).attr("stroke-width", 5 / transform.k);
+    gx.call(xAxis, transform.rescaleX(x));
+    gy.call(yAxis, transform.rescaleY(y));
+}
 // setting up the svg and restart button
 // also removes previous
 function setup() {
@@ -25,8 +30,11 @@ function setup() {
     svg = d3.select("#svg_area").append("svg")
         .attr("width", "100%")
         .attr("height", "500px")
-        .attr("viewBox", "0 0 " + width + " " + height)
+        .attr("viewBox", [0, 0, width, height])
         .style('cursor', 'pointer');
+
+    const zoom = d3.zoom()
+        .on("zoom", zoomed);    
 
 
     // Initialize the restart button
@@ -45,12 +53,15 @@ function setup() {
 function draw(data) {
 
     // coordinate scaling
-    xMinMax = d3.extent(data,function(d){
+    xMinMax = d3.extent(data, function (d) {
         return parseFloat(d.x)
     })
-    yMinMax = d3.extent(data,function(d){
+    yMinMax = d3.extent(data, function (d) {
         return parseFloat(d.y)
     })
+
+    
+
     x = d3.scaleLinear()
         .range([0 + margin, width - margin])
         .domain(xMinMax);
@@ -59,6 +70,8 @@ function draw(data) {
         .range([height - margin, 0 + margin])
         .domain(yMinMax);
 
+    console.log(yMinMax)
+
     // Axis
     xAxis = d3.axisBottom(x);
     yAxis = d3.axisLeft(y);
@@ -66,13 +79,13 @@ function draw(data) {
     xAxisG = svg.append('g')
         .attr('id', 'xAxis')
         .attr('class', 'axis');
-    
+
     yAxisG = svg.append('g')
         .attr('id', 'yAxis')
         .attr('class', 'axis');
 
     xAxisG.call(xAxis)
-        .attr('transform', 'translate(0, ' + (height -margin) + ')');
+        .attr('transform', 'translate(0, ' + (height - margin) + ')');
 
     yAxisG.call(yAxis)
         .attr('transform', 'translate(' + margin + ',0)');
