@@ -1,8 +1,13 @@
-var margin = 40, width = 1000, height = 500;
-var x;
-var y;
-
+var margin = 40, width = 650, height = 500;
+var k = height / width,
+    x,
+    y,
+    z = d3.schemeCategory10;
+var svg, g, hull;
 var clr = ["white", "red", "blue", "green", "yellow", "black", "purple", "grey", "brown", "orange", "pink"];
+
+
+
 function color(i) {
     if (i == 0) {
         return clr[0];
@@ -12,12 +17,6 @@ function color(i) {
     }
 }
 
-function zoomed(event) {
-    const { transform } = event;
-    g.attr("transform", transform).attr("stroke-width", 5 / transform.k);
-    gx.call(xAxis, transform.rescaleX(x));
-    gy.call(yAxis, transform.rescaleY(y));
-}
 // setting up the svg and restart button
 // also removes previous
 function setup() {
@@ -32,10 +31,6 @@ function setup() {
         .attr("height", "500px")
         .attr("viewBox", [0, 0, width, height])
         .style('cursor', 'pointer');
-
-    const zoom = d3.zoom()
-        .on("zoom", zoomed);    
-
 
     // Initialize the restart button
     d3.select("#button_area").selectAll("input").remove();
@@ -52,16 +47,13 @@ function setup() {
 // draw scaled data points and add little animation
 function draw(data) {
 
-    // coordinate scaling
+    // Axis
     xMinMax = d3.extent(data, function (d) {
         return parseFloat(d.x)
     })
     yMinMax = d3.extent(data, function (d) {
         return parseFloat(d.y)
     })
-
-    
-
     x = d3.scaleLinear()
         .range([0 + margin, width - margin])
         .domain(xMinMax);
@@ -70,29 +62,15 @@ function draw(data) {
         .range([height - margin, 0 + margin])
         .domain(yMinMax);
 
-    console.log(yMinMax)
-
-    // Axis
-    xAxis = d3.axisBottom(x);
-    yAxis = d3.axisLeft(y);
-
-    xAxisG = svg.append('g')
-        .attr('id', 'xAxis')
-        .attr('class', 'axis');
-
-    yAxisG = svg.append('g')
-        .attr('id', 'yAxis')
-        .attr('class', 'axis');
-
-    xAxisG.call(xAxis)
-        .attr('transform', 'translate(0, ' + (height - margin) + ')');
-
-    yAxisG.call(yAxis)
-        .attr('transform', 'translate(' + margin + ',0)');
+    svg.selectAll(".domain")
+        .style("display", "none");
 
 
     // actually drawing points
-    var points = svg.selectAll(".dot")
+
+    g = svg.append('g')
+
+    var points = g.selectAll(".dot")
         .data(data)
         .enter().append("circle")
         .attr("class", "dot")
@@ -101,7 +79,34 @@ function draw(data) {
         .attr("cy", function (d, i) { return y(30 * Math.sin(i / 5)); })
         .style("fill", function (d) { return color(d.cluster); })
         .style("stroke", "black")
-        .style("stroke-width", "1px");
+        .style("stroke-width", "1px")
+        .on("mouseover", function (event, d) {
+            // get dunn-index from clusters
+            var d_i;
+            for (var i = 0; i < centroids.length; i++) {
+                if (centroids[i].cluster == d.cluster) {
+                    d_i = centroids[i].dunn_index;
+                }
+            }
+            // render HTML for tooltip
+            html = 'X: ' + d.x + '<br />';
+            html += 'Y: ' + d.y + '<br />';
+            html += 'Cluster: ' + d.cluster + '<br />';
+            html += 'Dunn-index: ' + d_i + '<br />';
+
+            // populate tooltip
+            d3.select('#tooltip')
+                .html(html)
+                .style('left', event.pageX - 100 + "px")
+                .style('top', event.pageY - 150 + "px")
+                .style('opacity', 0.85);
+        })
+        .on('mouseout', function () {
+            d3.select('#tooltip')
+                .style('left', -1000)
+                .style('opacity', 0);
+            g.select('path').remove();
+        });
 
     points.transition()
         .duration(500)
@@ -127,3 +132,6 @@ function choose_data(callback) {
 
     display_choice(choices, title, callback);
 }
+
+
+
