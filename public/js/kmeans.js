@@ -1,3 +1,5 @@
+const { pointer } = require("d3");
+
 // Functions specific to kmeans
 var centroids;
 
@@ -25,7 +27,7 @@ function dunn_index(data, cluster) {
     var pts_c = [];
     var ma_d = [];
     var col = [];
-    var pts_o = new Array(); // list with objects in it
+    var pts_o = new Array();
     for (var i = 0; i < clusters.length; i++) {
         if (clusters[i][0] == cluster) {
             //get points within a cluster
@@ -101,9 +103,37 @@ function dunn_index(data, cluster) {
     return inter / intra;
 }
 
-function silhouetten_koeffizient{
-    console.log("to-do");
-}
+// function silhouetten_koeffizient(data, point){
+//     var a = 0;
+//     var b = 0;
+//     var min_c_dist = Infinity;
+//     var min_c = 0;
+//     var pts_c = [];
+//     var pts_o = new Array();
+//     clusters = d3.groups(data, d => d.cluster);
+//     for (var i = 0; i < clusters.length; i++) {
+//         if (clusters[i][0] == point.cluster) {
+//             //get points within a cluster
+
+//             pts_c = clusters[i][1];
+//         }
+//         else { pts_o = pts_o.concat(clusters[i][1]); }
+//     }
+    
+//     for (var i = 0; i < pts_c.length; i++){
+//         a = a + dist(point,pts_c[i]);
+//     }
+//     // mean of distance to points in cluster
+//     a = a / (pts_c.length -1)
+
+//     for (var i = 0; i < pts_o.length; i++){
+//         var c = dist(point, pts_o[i])
+//         if (c < min_c_dist){
+//             min_c_dist = c;
+//             min_c = pts_o[i].cluster
+//         }
+//     } 
+// }
 
 function choose_init_method(callback) {
     var choices = [{ name: "Ich wähle", choice: "user" },

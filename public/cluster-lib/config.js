@@ -1,3 +1,4 @@
+
 var margin = 40, width = 650, height = 500;
 var k = height / width,
     x,
@@ -88,11 +89,13 @@ function draw(data) {
                     d_i = centroids[i].dunn_index;
                 }
             }
+            // var s_c = silhouetten_koeffizient(data, d);
             // render HTML for tooltip
             html = 'X: ' + d.x + '<br />';
             html += 'Y: ' + d.y + '<br />';
             html += 'Cluster: ' + d.cluster + '<br />';
             html += 'Dunn-index: ' + d_i + '<br />';
+            // html += 'Silhouetten-Koeffizient: ' + s_c + '<br />';
 
             // populate tooltip
             d3.select('#tooltip')
