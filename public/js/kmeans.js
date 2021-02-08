@@ -1,7 +1,108 @@
 // Functions specific to kmeans
+var centroids;
 
 function dist(w, z) {
     return Math.sqrt(Math.pow(w.x - z.x, 2) + Math.pow(w.y - z.y, 2));
+}
+function eu_dist(p1, p2) {
+    return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
+}
+
+function getIndexOfK(arr, k) {
+    for (var i = 0; i < arr.length; i++) {
+        var index = arr[i].indexOf(k);
+        if (index > -1) {
+            return [i, index];
+        }
+    }
+}
+
+// calculates dunn-index and updates Hull array 
+function dunn_index(data, cluster) {
+    clusters = d3.groups(data, d => d.cluster);
+    console.log(clusters);
+    var intra, inter;
+    var pts_c = [];
+    var ma_d = [];
+    var col = [];
+    var pts_o = new Array(); // list with objects in it
+    for (var i = 0; i < clusters.length; i++) {
+        if (clusters[i][0] == cluster) {
+            //get points within a cluster
+
+            pts_c = clusters[i][1];
+        }
+        else { pts_o = pts_o.concat(clusters[i][1]); }
+    }
+    if (pts_c.length > 3) {
+        //get vertex Hull
+        hull = d3.polygonHull(pts_c.map((d) => [d.x, d.y]));
+
+        // calculate distance Matrix intra
+        for (var i = 0; i < hull.length; i++) {
+            col = [];
+            for (var j = 0; j < hull.length; j++) {
+                col.push(eu_dist([hull[i][0], hull[i][1]], [hull[j][0], hull[j][1]]));
+            }
+            ma_d.push(col);
+        }
+
+        intra = d3.max(ma_d, function (array) {
+            return d3.max(array);
+        });
+        intra_pts = getIndexOfK(ma_d, intra);
+        console.log()
+
+        // reset the distance matrix
+        ma_d = [];
+        // calculate distance Matrix inter
+        for (var i = 0; i < pts_c.length; i++) {
+            col = [];
+            for (var j = 0; j < hull.length; j++) {
+                col.push(dist(pts_c[i], pts_o[j]));
+            }
+            ma_d.push(col);
+        }
+        inter = d3.min(ma_d, function (array) {
+            return d3.min(array);
+        });
+        console.log(inter, intra);
+        
+    }
+    else{
+        for (var i = 0; i < pts_c.length; i++) {
+            col = [];
+            for (var j = 0; j < pts_c.length; j++) {
+                col.push(eu_dist([pts_c[i][0], pts_c[i][1]], [pts_c[j][0], pts_c[j][1]]));
+            }
+            ma_d.push(col);
+        }
+        intra = d3.max(ma_d, function (array) {
+            return d3.max(array);
+        });
+        intra_pts = getIndexOfK(ma_d, intra);
+        console.log()
+
+        // reset the distance matrix
+        ma_d = [];
+        // calculate distance Matrix inter
+        for (var i = 0; i < pts_c.length; i++) {
+            col = [];
+            for (var j = 0; j < hull.length; j++) {
+                col.push(dist(pts_c[i], pts_o[j]));
+            }
+            ma_d.push(col);
+        }
+        inter = d3.min(ma_d, function (array) {
+            return d3.min(array);
+        });
+
+    }
+    return inter / intra;
+}
+
+function silhouetten_koeffizient{
+    console.log("to-do");
 }
 
 function choose_init_method(callback) {
@@ -16,7 +117,6 @@ function choose_init_method(callback) {
 }
 
 function reassign_points() {
-    console.log(data)
     // assign new cluster to each data point
     for (var j = 0; j < data.length; j++) {
         var ibest = 0;
@@ -30,37 +130,46 @@ function reassign_points() {
         }
         data[j].cluster = ibest;
     }
-    
-    svg.selectAll(".dot")
-    .transition()
-    .style("fill", function (d) { return clr[d.cluster]; })
-    .each(function () {
-        d3.select("#next_button")
-            .attr("value", "Update Centroids")
-            .on("click", update_centroids);
-    });
+
+    g.selectAll(".dot")
+        .transition()
+        .style("fill", function (d) { return clr[d.cluster]; })
+        .each(function () {
+
+            d3.select("#next_button")
+                .attr("value", "Update Centroids")
+                .on("click", update_centroids);
+        });
 
     // update the lines
-    var l = svg.selectAll('.line_cluster')
-            .data(data);
-        var updateLine = function(lines) {
-            lines
-                .attr("class", "line_cluster")
-                .attr('x1', function(d) { return x(d.x); })
-                .attr('y1', function(d) { return y(d.y); })
-                .attr('x2', function(d) { return x(centroids[d.cluster].x); })
-                .attr('y2', function(d) { return y(centroids[d.cluster].y); })
-                .attr('stroke', function(d) { return clr[d.cluster]; });
-        };
-        updateLine(l.enter().append('line'));
-        updateLine(l.transition().duration(500));
-        l.exit().remove();
+    var l = g.selectAll('.line_cluster')
+        .data(data);
+    var updateLine = function (lines) {
+        lines
+            .attr("class", "line_cluster")
+            .attr('x1', function (d) { return x(d.x); })
+            .attr('y1', function (d) { return y(d.y); })
+            .attr('x2', function (d) { return x(centroids[d.cluster].x); })
+            .attr('y2', function (d) { return y(centroids[d.cluster].y); })
+            .attr('stroke', function (d) { return clr[d.cluster]; });
+    };
+    updateLine(l.enter().append('line'));
+    updateLine(l.transition().duration(500));
+    l.exit().remove();
 
-    
-    
+    const zoom = d3.zoom()
+        .scaleExtent([1, 8])
+        .on('zoom', function (event) {
+            g.selectAll('.line_cluster')
+                .attr('transform', event.transform);
+            g.selectAll("circle")
+                .attr('transform', event.transform);
+        });
+    svg.call(zoom);
 }
 
 function update_centroids() {
+    h_array = []
     var new_centroids = new Array(centroids.length);
     var cent_counts = new Array(centroids.length);
     for (var i = 1; i < new_centroids.length; i++) {
@@ -89,20 +198,25 @@ function update_centroids() {
     for (var i = 1; i < new_centroids.length; i++) {
         centroids[i].x = new_centroids[i].x;
         centroids[i].y = new_centroids[i].y;
+        centroids[i].dunn_index = dunn_index(data, centroids[i].cluster)
     }
 
-    svg.selectAll(".centroid")
+    g.selectAll(".centroid")
         .transition()
         .duration(250)
         .attr("cx", function (d) { return x(d.x); })
         .attr("cy", function (d) { return y(d.y); })
         .each(function () {
+
             d3.select("#next_button")
                 .attr("value", "Reassign Points")
                 .on("click", reassign_points);
         });
-        
-        
+
+
+
+
+
 }
 
 function add_go_button() {
@@ -114,7 +228,7 @@ function add_go_button() {
         .attr("style", "width: 150px; margin: 5px;")
         .attr("value", "   LOS!   ")
         .on("click", function () {
-            svg.selectAll(".cursor").remove();
+            g.selectAll(".cursor").remove();
             d3.select(".target_rect").remove();
             reassign_points();
         });
@@ -136,7 +250,8 @@ function rm_next_centroid_button() {
 }
 
 function get_centroids() {
-    var centroids = new Array(0);
+    h_array = [];
+    centroids = new Array(0);
     centroids.push({ x: -30, y: -30 });  /* -30 for better animation in furthest */
     var centcount = 0;
 
@@ -146,9 +261,9 @@ function get_centroids() {
 
             centcount += 1;
             var chosen = data[Math.floor(Math.random() * data.length)];
-            centroids[centcount] = { x: chosen.x, y: chosen.y, cluster: centcount };
+            centroids[centcount] = { x: chosen.x, y: chosen.y, cluster: centcount, dunn_index: 0 };
 
-            svg.selectAll(".centroid").data(centroids.slice(1, centroids.length))
+            g.selectAll(".centroid").data(centroids.slice(1, centroids.length))
                 .enter().append("circle")
                 .attr("class", "centroid")
                 .attr("r", 10.0)
@@ -199,10 +314,10 @@ function get_centroids() {
                         best_centroid = data[i];
                     }
                 }
-                centroids[centcount] = { x: best_centroid.x, y: best_centroid.y, cluster: centcount };
+                centroids[centcount] = { x: best_centroid.x, y: best_centroid.y, cluster: centcount, dunn_index: 0 };
             }
 
-            svg.selectAll(".centroid").data(centroids.slice(1, centroids.length))
+            g.selectAll(".centroid").data(centroids.slice(1, centroids.length))
                 .enter().append("circle")
                 .attr("class", "centroid")
                 .attr("r", 10.0)
@@ -237,19 +352,16 @@ function get_centroids() {
             }
             centcount += 1;
             var xy = d3.pointer(event, svg.node());
-            var cent = { x: x.invert(xy[0]), y: y.invert(xy[1]), cluster: centcount };
+            var cent = { x: x.invert(xy[0]), y: y.invert(xy[1]), cluster: centcount, dunn_index: 0 };
             centroids.push(cent);
-            console.log
             // draw centroid
-            svg.selectAll(".centroid").data(centroids.slice(1, centroids.length))
+            g.selectAll(".centroid").data(centroids.slice(1, centroids.length))
                 .enter().append("circle")
                 .attr("class", "centroid")
                 .attr("r", 10.0)
                 .attr("cx", function (d) { return x(d.x); })
                 .attr("cy", function (d) { return y(d.y); })
                 .style("fill", function (d) { return color(d.cluster); });
-
-            // draw_voronoi();
 
             if (centcount == 2) {
                 add_go_button();
