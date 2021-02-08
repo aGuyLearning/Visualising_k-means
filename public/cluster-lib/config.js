@@ -58,13 +58,17 @@ function draw(data) {
     x = d3.scaleLinear()
         .range([0 + margin, width - margin])
         .domain(xMinMax);
+    
 
     y = d3.scaleLinear()
         .range([height - margin, 0 + margin])
         .domain(yMinMax);
 
+
     svg.selectAll(".domain")
         .style("display", "none");
+    
+    
 
 
     // actually drawing points
@@ -106,7 +110,7 @@ function draw(data) {
         })
         .on('mouseout', function () {
             d3.select('#tooltip')
-                .style('left', -1000)
+                .style('left', -1000 +'px')
                 .style('opacity', 0);
             g.select('path').remove();
         });

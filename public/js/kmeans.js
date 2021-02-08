@@ -1,7 +1,16 @@
-const { pointer } = require("d3");
-
 // Functions specific to kmeans
 var centroids;
+const zoom = d3.zoom()
+    .scaleExtent([1, 8])
+    .on('zoom', function (event) {
+
+        g.selectAll("circle")
+            .attr('transform', event.transform);
+        g.selectAll('.line_cluster')
+            .attr('transform', event.transform);
+
+    });
+
 
 function dist(w, z) {
     return Math.sqrt(Math.pow(w.x - z.x, 2) + Math.pow(w.y - z.y, 2));
@@ -19,28 +28,33 @@ function getIndexOfK(arr, k) {
     }
 }
 
+
 // calculates dunn-index and updates Hull array 
 function dunn_index(data, cluster) {
     clusters = d3.groups(data, d => d.cluster);
-    console.log(clusters);
+    // initialize variables for inter and intra cluster distances
     var intra, inter;
+    // pts_c contains points within the given cluster 
     var pts_c = [];
+    //pts_o collects all other points
+    var pts_o = new Array();
+    // distance matrix
     var ma_d = [];
     var col = [];
-    var pts_o = new Array();
+
+    //get all points within a cluster and collect them in ptc_c
+    //all other points are added to pts_o
     for (var i = 0; i < clusters.length; i++) {
         if (clusters[i][0] == cluster) {
-            //get points within a cluster
-
             pts_c = clusters[i][1];
         }
         else { pts_o = pts_o.concat(clusters[i][1]); }
     }
     if (pts_c.length > 3) {
-        //get vertex Hull
+        //get vertex Hull of the cluster
         hull = d3.polygonHull(pts_c.map((d) => [d.x, d.y]));
 
-        // calculate distance Matrix intra
+        // calculate distance Matrix intra cluster of given cluster 
         for (var i = 0; i < hull.length; i++) {
             col = [];
             for (var j = 0; j < hull.length; j++) {
@@ -48,7 +62,7 @@ function dunn_index(data, cluster) {
             }
             ma_d.push(col);
         }
-
+        // get maximum intra cluster distance
         intra = d3.max(ma_d, function (array) {
             return d3.max(array);
         });
@@ -57,7 +71,9 @@ function dunn_index(data, cluster) {
 
         // reset the distance matrix
         ma_d = [];
-        // calculate distance Matrix inter
+        // calculate distance Matrix inter cluster
+        // because it is 2D the points that are the furthes
+        // will be elements of the convex hull
         for (var i = 0; i < pts_c.length; i++) {
             col = [];
             for (var j = 0; j < hull.length; j++) {
@@ -65,13 +81,14 @@ function dunn_index(data, cluster) {
             }
             ma_d.push(col);
         }
+        // get minimum inter cluster distance
         inter = d3.min(ma_d, function (array) {
             return d3.min(array);
         });
-        console.log(inter, intra);
-        
+        console.log('inter: ', inter, 'intra: ', intra, 'cluster:', cluster);
+
     }
-    else{
+    else {
         for (var i = 0; i < pts_c.length; i++) {
             col = [];
             for (var j = 0; j < pts_c.length; j++) {
@@ -119,7 +136,7 @@ function dunn_index(data, cluster) {
 //         }
 //         else { pts_o = pts_o.concat(clusters[i][1]); }
 //     }
-    
+
 //     for (var i = 0; i < pts_c.length; i++){
 //         a = a + dist(point,pts_c[i]);
 //     }
@@ -187,14 +204,7 @@ function reassign_points() {
     updateLine(l.transition().duration(500));
     l.exit().remove();
 
-    const zoom = d3.zoom()
-        .scaleExtent([1, 8])
-        .on('zoom', function (event) {
-            g.selectAll('.line_cluster')
-                .attr('transform', event.transform);
-            g.selectAll("circle")
-                .attr('transform', event.transform);
-        });
+
     svg.call(zoom);
 }
 
@@ -258,8 +268,6 @@ function add_go_button() {
         .attr("style", "width: 150px; margin: 5px;")
         .attr("value", "   LOS!   ")
         .on("click", function () {
-            g.selectAll(".cursor").remove();
-            d3.select(".target_rect").remove();
             reassign_points();
         });
 }
@@ -392,14 +400,8 @@ function get_centroids() {
                 .attr("cx", function (d) { return x(d.x); })
                 .attr("cy", function (d) { return y(d.y); })
                 .style("fill", function (d) { return color(d.cluster); });
-
             if (centcount == 2) {
                 add_go_button();
-            }
-
-            if (centcount >= 10) {
-                cursor.remove();
-                d3.select(".target_rect").remove();
             }
         });
         return centroids;
