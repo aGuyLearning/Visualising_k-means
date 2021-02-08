@@ -2,31 +2,16 @@
 
 // Returns vanilla data with 3 circular normals
 function threenorm(n) {
-    var rnorm = d3.randomNormal();
-    var data = new Array(n);
-
-    for(var i = 0; i < n; i++){
-        var j = Math.floor(Math.random() * 3);
-        if(j % 3 == 0){
-            mux = -6;
-            muy = -6;
-        }
-        else if(j % 3 == 1){
-            mux = 6;
-            muy = -6;
-        }
-        else {
-            mux = 0;
-            muy = 6;
-        }
-        data[i] = {x: rnorm() + mux, y: rnorm() + muy, cluster: 0};
-    }
-    
-      return data;
+    var random = d3.randomNormal(0, 0.2),
+    sqrt3 = Math.sqrt(3),
+    points0 = d3.range(50).map(function() { return {x:random() + sqrt3,y: random() + 1, cluster:0} }),
+    points1 = d3.range(50).map(function() { return {x:random() - sqrt3,y: random() + 1, cluster:0}; }),
+    points2 = d3.range(50).map(function() { return {x:random(),y: random() - 1, cluster:0}; }),
+    points = d3.merge([points0, points1, points2]);
+    return points;
 
     
 }
-
 // Uniformly
 function uniform(n) {
     var data = new Array(n);

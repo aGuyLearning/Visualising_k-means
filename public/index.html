@@ -47,14 +47,22 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#explanaition">Erklärung</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#example">Beispiel</a>
-                </li>
-            </ul>
+            <ol class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#introduction">Einleitung</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#clustering">Clustering</a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="#clustering--d-i">Dunn-Index</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#clustering--s-k">Silhouetten-Koeffizient </a></li>
+                                <li class="nav-item"><a class="nav-link" href="#clustering--bad">Probleme</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#k-means">K-Means</a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="#k-means--interaction">Beispiel</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#k-means--good">Gute Eigenschaften</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#k-means--bad">Probleme</a></li>
+                        </li>
+            </ol>
         </div>
     </nav>
 
@@ -80,7 +88,7 @@
 
                     <!-- Introduction section -->
                     <section id="introduction">
-                        <p>Ich bin furchtbar unorganisiert und doch macht es mir großen Spaß mir systeme auszudenken die
+                        <p>Ich bin furchtbar unorganisiert und doch macht es mir großen Spaß mir Systeme auszudenken die
                             Ordnung schaffen. Das Schöne an Machine Learning ist, dass die Modelle dies selbstständig
                             tun, besonders beim unsupervised Learning. Einer meiner Lieblingsalgorithmen dazu ist der
                             K-Means Algorithmus, den ich durch das Frühstudium an der Uni Koblenz-Landau kennenlernen
@@ -193,8 +201,8 @@
                             <div class="row">
                                 <div class="col-md" style="text-align: center;">
                                     <div class="card"></div>
+                                    <div id="tooltip"></div>
                                     <div id="button_area" class="card-body">
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -249,12 +257,9 @@
                         <li><a href="#k-means">K-Means</a>
                             <ul>
                                 <li><a href="#k-means--interaction">Beispiel</a></li>
-                                <li><a href="#k-means--good"></a></li>
+                                <li><a href="#k-means--good">Gute Eigenschaften</a></li>
                                 <li><a href="#k-means--bad">Probleme</a></li>
-
-                                </pl>
                         </li>
-
                     </ol>
                 </nav>
             </div>
